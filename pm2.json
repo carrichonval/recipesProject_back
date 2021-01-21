@@ -1,0 +1,12 @@
+{
+    "apps": [
+        {
+            "name": "webservices",
+            "exec_mode": "cluster",
+            "instances": "1",
+            "script": "lib/index.ts",
+            "interpreter": "ts-node",
+            "watch":true
+        }
+    ]
+}
