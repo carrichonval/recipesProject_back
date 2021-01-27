@@ -25,7 +25,7 @@ export class StatsController {
     public async getStatsUser (req: Request, res: Response) {
      
         const totalRecettes = await Recette.count({ where: { "user_id": { [Op.eq]: req.params.id } } }).catch((err: Error) => res.json(err))
-        const totalAchieves = await Recette.sum('achieve', { where: { "user_id": { [Op.eq]: req.params.id } } }).catch((err: Error) => res.json(err))
+        const totalAchieves = await Recette.sum('achieve', { where: { "user_id": { [Op.eq]: req.params.id } } }).catch((err: Error) => res.json(err)) || 0
         const totalResults = await Result.count({ where: { "user_id": { [Op.eq]: req.params.id } } }).catch((err: Error) => res.json(err))
 
         const total = {

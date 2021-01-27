@@ -3,6 +3,7 @@ import { RecetteController } from "../controllers/recette.controller";
 import { UserController } from '../controllers/user.controller'
 import { ResultController } from '../controllers/result.controller'
 import { StatsController } from "../controllers/stats.controller";
+import { AuthController } from '../controllers/auth.controller'
 
 export class Routes {
     public app: express.Application;
@@ -11,10 +12,13 @@ export class Routes {
     public userController : UserController = new UserController();
     public resultController : ResultController = new ResultController();
     public statsController : StatsController = new StatsController();
+    public authController : AuthController = new AuthController();
 
 
     public routes(app): void {
         //------------------
+        app.route("/register")
+            .post(this.authController.register)
 
         app.route("/recettes")
             .get(this.recetteController.getRecettes)
@@ -24,6 +28,10 @@ export class Routes {
         app.route("/users")
             .get(this.userController.getUsers)
             .post(this.userController.addUser)
+        app.route("/users/emails")
+            .get(this.userController.getEmails)
+        app.route("/users/logins")
+            .get(this.userController.getLogins)
         app.route("/users/:id")
             .get(this.userController.getUser)
             .delete(this.userController.removeUser)

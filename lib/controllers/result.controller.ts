@@ -13,6 +13,7 @@ export class ResultController {
             include: [
                 Result.associations.result_likes,
                 Result.associations.result_comments,
+                Result.associations.user
             ]
         })
             .then((results: Array<Result>) => res.json(results))
@@ -26,6 +27,7 @@ export class ResultController {
             include: [
                 Result.associations.result_likes,
                 Result.associations.result_comments,
+                Result.associations.user
             ]
          })
             .then((result: Result) => res.json(result))

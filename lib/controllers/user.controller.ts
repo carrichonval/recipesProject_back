@@ -59,6 +59,24 @@ export class UserController {
         ;
     }
 
+    public getEmails (req: Request, res: Response) {
+        User.findAll({ 
+            attributes: ['email']
+         })
+            .then((users: Array<User>) => res.json(users))
+            .catch((err: Error) => res.status(500).json(err))
+        ;
+    }
+
+    public getLogins (req: Request, res: Response) {
+        User.findAll({ 
+            attributes: ['login']
+         })
+            .then((users: Array<User>) => res.json(users))
+            .catch((err: Error) => res.status(500).json(err))
+        ;
+    }
+
     public async addUser (req: Request, res: Response) {
         let password: String = await bcrypt.hash(req.body.password, 10);
 
