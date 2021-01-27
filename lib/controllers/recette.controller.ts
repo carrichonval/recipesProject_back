@@ -9,6 +9,10 @@ export class RecetteController {
         Recette.findAll<Recette>({
             order: [
                 ['id', 'ASC']
+            ],
+            include: [
+                Recette.associations.etapes,
+                Recette.associations.ingredients,
             ]
         })
             .then((recettes: Array<Recette>) => res.json(recettes))

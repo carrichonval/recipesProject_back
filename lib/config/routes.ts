@@ -2,6 +2,7 @@ import * as express from "express";
 import { RecetteController } from "../controllers/recette.controller";
 import { UserController } from '../controllers/user.controller'
 import { ResultController } from '../controllers/result.controller'
+import { StatsController } from "../controllers/stats.controller";
 
 export class Routes {
     public app: express.Application;
@@ -9,6 +10,7 @@ export class Routes {
     public recetteController : RecetteController = new RecetteController();
     public userController : UserController = new UserController();
     public resultController : ResultController = new ResultController();
+    public statsController : StatsController = new StatsController();
 
 
     public routes(app): void {
@@ -16,7 +18,6 @@ export class Routes {
 
         app.route("/recettes")
             .get(this.recetteController.getRecettes)
-            
         app.route("/recettes/:id")
             .get(this.recetteController.getRecette)
 
@@ -33,6 +34,12 @@ export class Routes {
             .get(this.resultController.getResults)
         app.route("/results/:id")
             .get(this.resultController.getResult)
+
+        app.route("/stats")
+            .get(this.statsController.getGeneral)
+        app.route("/stats/:id")
+            .get(this.statsController.getStatsUser)
+
     }
 
 }
