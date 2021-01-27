@@ -4,6 +4,7 @@ import { database } from "../config/database";
 
 
 export class ResultLike extends Model {}
+
 ResultLike.init({},
     {
         sequelize: database,

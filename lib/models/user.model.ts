@@ -2,8 +2,8 @@ import { Model, DataTypes} from "sequelize";
 import { database } from "../config/database";
 import { Recette } from './recette.model'
 import { Result } from './result.model'
-import { ResultLike } from './result_like.model'
-import { ResultComment} from './result_comment.model'
+import { ResultLike } from './result_like.model';
+import { ResultComment} from './result_comment.model';
 
 export class User extends Model {
     public id : number
@@ -13,8 +13,8 @@ export class User extends Model {
     public first_name : string
     public last_name : string
     public description : string
-    public created_At : Date
-    public updated_At : Date
+    public createdAt : Date
+    public updatedAt : Date
 }
 
 User.init(
@@ -53,12 +53,12 @@ User.init(
             allowNull: true,
         },
         
-        created_At: {
+        createdAt: {
             type: new DataTypes.DATE,
             allowNull: true,
         },
         
-        updated_At: {
+        updatedAt: {
             type: new DataTypes.DATE,
             allowNull: true,
         },
@@ -71,59 +71,61 @@ User.init(
     }
 );
 
-//Liaisons avec recette
+
+
+//Liaisons avec les recettes
 User.hasMany(Recette, {
     as : "recettes",
     foreignKey: "user_id",
-    sourceKey: "id"
 });
 
 Recette.belongsTo(User, {
     as: "user",
     foreignKey: "user_id",
-    targetKey: "id"
 });
 
-//Liaisons avec recette
+//Liaisons avec les resultats
 User.hasMany(Result, {
     as : "results",
     foreignKey: "user_id",
-    sourceKey: "id"
 });
 
 Result.belongsTo(User, {
     as: "user",
     foreignKey: "user_id",
-    targetKey: "id"
 });
 
+
 //liaisons pour les likes
+
+User.belongsToMany(Result, {
+    as: "result_likes",
+    foreignKey: "user_id",
+    through: ResultLike,
+    timestamps: false
+});
+
 Result.belongsToMany(User, {
-    as : "users",
+    as : "users_likes",
     foreignKey: "result_id",
     through: ResultLike,
     timestamps: false
 });
 
-User.belongsToMany(Result, {
-    as: "results",
-    foreignKey: "user_id",
-    through: ResultLike,
-    timestamps: false
-});
 
 //liaisons avec les commentaires
 
+User.belongsToMany(Result, {
+    as: "result_comments",
+    foreignKey: "user_id",
+    through: ResultComment,
+    timestamps: false
+});
+
 Result.belongsToMany(User, {
-    as : "users",
+    as : "users_comments",
     foreignKey: "result_id",
     through: ResultComment,
     timestamps: false
 });
 
-User.belongsToMany(Result, {
-    as: "results",
-    foreignKey: "user_id",
-    through: ResultComment,
-    timestamps: false
-});

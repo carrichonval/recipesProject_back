@@ -13,8 +13,8 @@ export class Recette extends Model {
     public type : string
     public achieve : number
     public image : string
-    public created_At : Date
-    public updated_At : Date
+    public createdAt : Date
+    public updatedAt : Date
 }
 
 Recette.init(
@@ -48,11 +48,11 @@ Recette.init(
             type: new DataTypes.STRING(200),
             allowNull: true,
         },
-        created_At: {
+        createdAt: {
             type: new DataTypes.DATE,
             allowNull: true,
         },
-        updated_At: {
+        updatedAt: {
             type: new DataTypes.DATE,
             allowNull: true,
         },
@@ -74,7 +74,7 @@ Recette.hasMany(Etape, {
 
 Etape.belongsTo(Recette, {
     as: "recette",
-    foreignKey: "recette_id",
+    foreignKey: "id",
     targetKey: "id"
 });
 
@@ -88,6 +88,6 @@ Recette.hasMany(Ingredient, {
 
 Ingredient.belongsTo(Recette, {
     as: "recette",
-    foreignKey: "recette_id",
+    foreignKey: "id",
     targetKey: "id"
 });

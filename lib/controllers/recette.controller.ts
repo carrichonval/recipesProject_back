@@ -13,9 +13,20 @@ export class RecetteController {
         })
             .then((recettes: Array<Recette>) => res.json(recettes))
             .catch((err: Error) => res.status(500).json(err))
-        ;
     }
 
+    public getRecette (req: Request, res: Response) {
+
+        Recette.findOne({ 
+            where: { id: req.params.id },
+            include: [
+                Recette.associations.etapes,
+                Recette.associations.ingredients,
+            ]
+         })
+            .then((recette: Recette) => res.json(recette))
+            .catch((err: Error) => res.status(500).json(err))
+    }
    
 
 }

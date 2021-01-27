@@ -1,6 +1,8 @@
 // lib/models/node.model.ts
 import { Model, DataTypes} from "sequelize";
 import { database } from "../config/database";
+import {ResultLike} from './result_like.model'
+import { ResultComment } from './result_comment.model'
 
 
 export class Result extends Model {
@@ -15,7 +17,7 @@ Result.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        step: {
+        image: {
             type: new DataTypes.STRING(250),
             allowNull: false,
         },
@@ -28,3 +30,27 @@ Result.init(
     }
 );
 
+
+Result.hasMany(ResultLike, {
+    as : "result_likes",
+    foreignKey: "result_id",
+    sourceKey: "id"
+});
+
+ResultLike.belongsTo(Result, {
+    as: "result",
+    foreignKey: "id",
+    targetKey: "id"
+});
+
+Result.hasMany(ResultComment, {
+    as : "result_comments",
+    foreignKey: "result_id",
+    sourceKey: "id"
+});
+
+ResultComment.belongsTo(Result, {
+    as: "result",
+    foreignKey: "id",
+    targetKey: "id"
+});

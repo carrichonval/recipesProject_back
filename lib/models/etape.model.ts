@@ -6,7 +6,7 @@ import { database } from "../config/database";
 export class Etape extends Model {
     public id : number
     public step : number
-    public details : string
+    public detail : string
 }
 
 Etape.init(
@@ -20,7 +20,7 @@ Etape.init(
             type: new DataTypes.INTEGER,
             allowNull: false,
         },
-        details: {
+        detail: {
             type: new DataTypes.STRING(250),
             allowNull: false,
         },
