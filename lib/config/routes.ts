@@ -19,6 +19,8 @@ export class Routes {
         //------------------
         app.route("/register")
             .post(this.authController.register)
+        app.route("/login")
+            .post(this.authController.login)
 
         app.route("/recettes")
             .get(this.recetteController.getRecettes)

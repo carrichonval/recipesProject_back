@@ -8,7 +8,7 @@ export class AuthController {
 
     public async login (req: Request, res: Response) {
         User.findOne({ 
-            where: { email: req.body.email },
+            where: { login: req.body.login },
             include: [
                 User.associations.recettes,
                 User.associations.result_likes,
@@ -22,7 +22,6 @@ export class AuthController {
                 res.json({ message: "Cet utilisateur n'existe pas" })
             }else{
                 //Vérifier le mot de passe
-                console.log(user.password)
                 if(bcrypt.compareSync(req.body.password,user.password)){
                     const token = createToken(user)
                     res.json({ access_token: token })
