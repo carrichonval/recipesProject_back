@@ -13,6 +13,7 @@ export class User extends Model {
     public first_name : string
     public last_name : string
     public description : string
+    public achieve : number
     public createdAt : Date
     public updatedAt : Date
 }
@@ -52,7 +53,10 @@ User.init(
             type: new DataTypes.STRING(500),
             allowNull: true,
         },
-        
+        achieve:{
+            type: new DataTypes.INTEGER,
+            allowNull: false,
+        },
         createdAt: {
             type: new DataTypes.DATE,
             allowNull: true,

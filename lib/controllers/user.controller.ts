@@ -87,6 +87,7 @@ export class UserController {
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
                 description: req.body.description,
+                achieve: req.body.achieve
             })
             .then((user: User) => res.json(user))
             .catch((err: Error) => res.json(err))
@@ -110,6 +111,7 @@ export class UserController {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             description: req.body.description,
+            achieve : req.body.achieve
         },{ where: { id: req.params.id } })
             .then(([number,users]: [number,Array<User>]) => res.json({number,users}))
             .catch((err: Error) => res.status(500).json(err))
@@ -127,6 +129,7 @@ export class UserController {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             description: req.body.description,
+            achieve: req.body.achieve
         },{ returning:true})
             .then(([user,created]: [User,boolean]) => res.json({user,created}))
             .catch((err: Error) => res.status(500).json(err))
