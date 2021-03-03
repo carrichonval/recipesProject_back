@@ -45,6 +45,9 @@ export class Routes {
         app.route("/results/:id")
             .get(this.resultController.getResult)
 
+        app.route("/comments")
+            .post(this.resultController.addComment)
+
         app.route("/stats")
             .get(this.statsController.getGeneral)
         app.route("/stats/:id")
