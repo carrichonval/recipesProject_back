@@ -44,6 +44,8 @@ export class Routes {
             .get(this.resultController.getResults)
         app.route("/results/:id")
             .get(this.resultController.getResult)
+        app.route("/results/users/:id")
+            .get(this.resultController.getResultFromUser)
 
         app.route("/comments")
             .post(this.resultController.addComment)

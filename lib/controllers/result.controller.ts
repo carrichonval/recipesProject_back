@@ -37,6 +37,20 @@ export class ResultController {
             .catch((err: Error) => res.status(500).json(err))
     }
 
+    public getResultFromUser (req: Request, res: Response) {
+
+        Result.findAll({ 
+            where: { user_id: req.params.id },
+            include: [
+                Result.associations.result_likes,
+                Result.associations.result_comments,
+                Result.associations.user
+            ]
+         })
+            .then((results: Array<Result>) => res.json(results))
+            .catch((err: Error) => res.status(500).json(err))
+    }
+
     public async addComment (req: Request, res: Response) {
        
         await ResultComment.create({
@@ -74,7 +88,7 @@ export class ResultController {
             .then((value: number) => res.json(value))
             .catch((err: Error) => res.status(500).json(err))
         ;
-        
+
     }
    
 
