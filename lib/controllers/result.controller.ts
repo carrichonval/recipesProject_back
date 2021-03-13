@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Result } from "../models/result.model";
 import { Op } from "sequelize";
 import { ResultComment } from '../models/result_comment.model'
+import { ResultLike } from "../models/result_like.model";
 
 
 export class ResultController {
@@ -46,6 +47,34 @@ export class ResultController {
             .then((result_comment: ResultComment) => res.json(result_comment))
             .catch((err: Error) => res.json(err))
         ;
+    }
+
+    public async addLike (req: Request, res: Response) {
+       
+        await ResultLike.create({
+                result_id: req.body.result_id,
+                user_id: req.body.user_id
+            })
+            .then((result_like: ResultLike) => res.json(result_like))
+            .catch((err: Error) => res.json(err))
+        ;
+    }
+
+    public async deleteLike (req: Request, res: Response) {
+       
+        await ResultLike.create({
+                result_id: req.body.result_id,
+                user_id: req.body.user_id
+            })
+            .then((result_like: ResultLike) => res.json(result_like))
+            .catch((err: Error) => res.json(err))
+        ;
+
+        await ResultLike.destroy({ where: {  result_id: req.body.result_id, user_id: req.body.user_id } })
+            .then((value: number) => res.json(value))
+            .catch((err: Error) => res.status(500).json(err))
+        ;
+        
     }
    
 

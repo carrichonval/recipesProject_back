@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { User } from "../models/user.model";
 import { createToken } from "../config/auth"
-import * as nodemailer from 'nodemailer'
 import * as bcrypt from "bcrypt";
 
 export class AuthController {
 
     public async login (req: Request, res: Response) {
+        console.log(req.body)
         User.findOne({ 
             where: { login: req.body.login },
             include: [

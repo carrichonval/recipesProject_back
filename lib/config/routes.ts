@@ -48,6 +48,11 @@ export class Routes {
         app.route("/comments")
             .post(this.resultController.addComment)
 
+        app.route("/likes")
+            .post(this.resultController.addLike)
+        app.route("/unlikes")
+            .post(this.resultController.deleteLike)
+
         app.route("/stats")
             .get(this.statsController.getGeneral)
         app.route("/stats/:id")
