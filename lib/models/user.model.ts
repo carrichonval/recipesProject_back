@@ -4,6 +4,7 @@ import { Recette } from './recette.model'
 import { Result } from './result.model'
 import { ResultLike } from './result_like.model';
 import { ResultComment} from './result_comment.model';
+import { RecetteNote } from './recette_note.model'
 
 export class User extends Model {
     public id : number
@@ -130,6 +131,23 @@ Result.belongsToMany(User, {
     as : "users_comments",
     foreignKey: "result_id",
     through: ResultComment,
+    timestamps: false
+});
+
+
+//liaisons avec les note
+
+User.belongsToMany(Recette, {
+    as: "recette_notes",
+    foreignKey: "user_id",
+    through: RecetteNote,
+    timestamps: false
+});
+
+Recette.belongsToMany(User, {
+    as : "users_notes",
+    foreignKey: "recette_id",
+    through: RecetteNote,
     timestamps: false
 });
 

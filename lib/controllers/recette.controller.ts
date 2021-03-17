@@ -13,6 +13,7 @@ export class RecetteController {
             include: [
                 Recette.associations.etapes,
                 Recette.associations.ingredients,
+                Recette.associations.recette_notes
             ]
         })
             .then((recettes: Array<Recette>) => res.json(recettes))
@@ -26,6 +27,7 @@ export class RecetteController {
             include: [
                 Recette.associations.etapes,
                 Recette.associations.ingredients,
+                Recette.associations.recette_notes
             ]
          })
             .then((recette: Recette) => res.json(recette))

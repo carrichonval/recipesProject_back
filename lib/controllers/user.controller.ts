@@ -32,6 +32,7 @@ export class UserController {
                 User.associations.result_likes,
                 User.associations.result_comments,
                 User.associations.results,
+                User.associations.recette_notes
             ],
             where:{
                 "first_name":{
@@ -52,6 +53,7 @@ export class UserController {
                 User.associations.result_likes,
                 User.associations.result_comments,
                 User.associations.results,
+                User.associations.recette_notes
             ]
          })
             .then((user: User) => res.json(user))

@@ -3,7 +3,6 @@ import { Model, DataTypes} from "sequelize";
 import { database } from "../config/database";
 import {ResultLike} from './result_like.model'
 import { ResultComment } from './result_comment.model'
-import { User } from './user.model'
 
 
 export class Result extends Model {

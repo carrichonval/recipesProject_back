@@ -3,6 +3,7 @@ import { Model, DataTypes} from "sequelize";
 import { database } from "../config/database";
 import { Etape } from './etape.model'
 import { Ingredient } from './ingredient.model'
+import { RecetteNote } from './recette_note.model'
 
 
 export class Recette extends Model {
@@ -88,6 +89,19 @@ Recette.hasMany(Ingredient, {
 
 Ingredient.belongsTo(Recette, {
     as: "recette",
+    foreignKey: "id",
+    targetKey: "id"
+});
+
+//liasions avec les notes
+Recette.hasMany(RecetteNote, {
+    as : "recette_notes",
+    foreignKey: "recette_id",
+    sourceKey: "id"
+});
+
+RecetteNote.belongsTo(Recette, {
+    as: "recette_note",
     foreignKey: "id",
     targetKey: "id"
 });
