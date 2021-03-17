@@ -44,6 +44,7 @@ export class AuthController {
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
                 description: req.body.description,
+                achieve:0
             })
             .then(async (user: User) => {
                 if(!user){
