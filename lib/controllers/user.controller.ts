@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../models/user.model";
 import * as bcrypt from "bcrypt";
 import { Op } from "sequelize";
+import { Recette } from "../models/recette.model";
 
 export class UserController {
 
@@ -136,6 +137,52 @@ export class UserController {
             .then(([user,created]: [User,boolean]) => res.json({user,created}))
             .catch((err: Error) => res.status(500).json(err))
         ;
+    }
+
+    public getMoyenneUser (req:Request, res:Response){
+
+         /*  if(notes.length > 0 ){
+            let total = 0
+            lodash.forEach(notes,(n)=>{
+                total += n.note
+            })
+            return Math.round(total / notes.length) + "/5"
+        }else{
+            return "Pas encore noté"
+        }   */
+
+        Recette.findAll<Recette>({ 
+            where: { user_id: req.params.id },
+            include: [
+                Recette.associations.etapes,
+                Recette.associations.ingredients,
+                Recette.associations.recette_notes
+            ]
+         })
+            .then((recettes: Array<Recette>) =>{
+                
+                let count = 0
+                let total = 0
+                recettes.forEach((recette:Recette)=>{
+                    if(recette.recette_notes.length > 0){
+                        recette.recette_notes.forEach((n)=>{
+                            total+=n.note
+                            count ++
+                        })
+                    }
+                })
+
+                if(count >0){
+                    res.json({note:Math.round(total / count)})
+                }else{
+                    res.json({note:"Pas encore noté"})
+                }
+
+                //res.json(recettes)
+            }
+
+             )
+            .catch((err: Error) => res.status(500).json(err))
     }
 
 }

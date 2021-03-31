@@ -34,6 +34,8 @@ export class Routes {
             .get(this.userController.getEmails)
         app.route("/users/logins")
             .get(this.userController.getLogins)
+        app.route("/getMoyenne/:id")
+            .get(this.userController.getMoyenneUser)
         app.route("/users/:id")
             .get(this.userController.getUser)
             .delete(this.userController.removeUser)

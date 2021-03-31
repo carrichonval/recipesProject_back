@@ -14,6 +14,7 @@ export class Recette extends Model {
     public type : string
     public achieve : number
     public image : string
+    public recette_notes : Array<RecetteNote>
     public createdAt : Date
     public updatedAt : Date
 }
