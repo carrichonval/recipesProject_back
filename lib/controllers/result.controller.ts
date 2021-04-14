@@ -83,6 +83,18 @@ export class ResultController {
         ;
 
     }
+
+
+    public async addResult (req: Request, res: Response) {
+       
+        await Result.create({
+                image:"ajout",
+                user_id: req.body.user_id,
+            })
+            .then((result: Result) => res.json(result))
+            .catch((err: Error) => res.json(err))
+        ;
+    }
    
 
 }

@@ -44,6 +44,7 @@ export class Routes {
 
         app.route("/results")
             .get(this.resultController.getResults)
+            .post(this.resultController.addResult)
         app.route("/results/:id")
             .get(this.resultController.getResult)
         app.route("/results/users/:id")
