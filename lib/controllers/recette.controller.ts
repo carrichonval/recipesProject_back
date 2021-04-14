@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Recette } from "../models/recette.model";
 import { Op } from "sequelize";
+import { RecetteNote } from "../models/recette_note.model";
 
 export class RecetteController {
 
@@ -32,6 +33,18 @@ export class RecetteController {
          })
             .then((recette: Recette) => res.json(recette))
             .catch((err: Error) => res.status(500).json(err))
+    }
+
+    public async addNote (req: Request, res: Response) {
+       
+        await RecetteNote.create({
+                recette_id: req.body.recette_id,
+                user_id: req.body.user_id,
+                note: req.body.note
+            })
+            .then((recette_note: RecetteNote) => res.json(recette_note))
+            .catch((err: Error) => res.json(err))
+        ;
     }
    
 

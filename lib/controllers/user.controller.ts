@@ -141,16 +141,6 @@ export class UserController {
 
     public getMoyenneUser (req:Request, res:Response){
 
-         /*  if(notes.length > 0 ){
-            let total = 0
-            lodash.forEach(notes,(n)=>{
-                total += n.note
-            })
-            return Math.round(total / notes.length) + "/5"
-        }else{
-            return "Pas encore noté"
-        }   */
-
         Recette.findAll<Recette>({ 
             where: { user_id: req.params.id },
             include: [
@@ -177,8 +167,6 @@ export class UserController {
                 }else{
                     res.json({note:"Pas encore noté"})
                 }
-
-                //res.json(recettes)
             }
 
              )
