@@ -46,6 +46,20 @@ export class RecetteController {
             .catch((err: Error) => res.json(err))
         ;
     }
+
+    public async addRecette (req: Request, res: Response) {
+       
+        await Recette.create({
+                name: req.body.recipe.name,
+                comment: req.body.recipe.comment,
+                type: req.body.recipe.type.label,
+                user_id: req.body.user_id,
+                achieve:0
+            })
+            .then((recette: Recette) => res.json(recette))
+            .catch((err: Error) => res.json(err))
+        ;
+    }
    
 
 }
