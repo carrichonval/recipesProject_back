@@ -63,6 +63,9 @@ export class Routes {
         app.route("/comments")
             .post(this.resultController.addComment)
 
+        app.route("/notes")
+            .post(this.recetteController.addNote)
+
         app.route("/likes")
             .post(this.resultController.addLike)
         app.route("/unlikes")
