@@ -74,9 +74,21 @@ export class ResultController {
         ;
     }
 
+    
+    
+    public async addResult (req: Request, res: Response) {
+        
+        await Result.create({
+            image:"ajout",
+            user_id: req.body.user_id,
+        })
+        .then((result: Result) => res.json(result))
+        .catch((err: Error) => res.json(err))
+        ;
+    }
+    
     public async deleteLike (req: Request, res: Response) {
        
-
         await ResultLike.destroy({ where: {  result_id: req.body.result_id, user_id: req.body.user_id } })
             .then((value: number) => res.json(value))
             .catch((err: Error) => res.status(500).json(err))
@@ -84,17 +96,36 @@ export class ResultController {
 
     }
 
-
-    public async addResult (req: Request, res: Response) {
+    public async deleteComment (req: Request, res: Response) {
        
-        await Result.create({
-                image:"ajout",
-                user_id: req.body.user_id,
-            })
-            .then((result: Result) => res.json(result))
-            .catch((err: Error) => res.json(err))
+        await ResultComment.destroy({ where: {  result_id: req.body.result_id, user_id: req.body.user_id } })
+            .then((value: number) => res.json(value))
+            .catch((err: Error) => res.status(500).json(err))
         ;
+
     }
-   
+
+
+    public async deleteResult (req:Request, res: Response){
+
+        await ResultLike.destroy({ where: {  result_id: req.body.result_id, user_id: req.body.user_id } })
+        .then((value: number) =>{ 
+            ResultComment.destroy({ where: {  result_id: req.body.result_id, user_id: req.body.user_id } })
+            .then((value: number) => {
+                Result.destroy({ where: { id:req.body.result_id } })
+                .then((value: number) => res.json(value))
+                .catch((err: Error) => res.status(500).json(err))
+            ;
+            })
+            .catch((err: Error) => res.status(500).json(err))
+        ;
+        })
+        .catch((err: Error) => res.status(500).json(err))
+    ;
+
+        res.json({"status":"ok"})
+
+    }
+
 
 }
