@@ -173,4 +173,15 @@ export class UserController {
             .catch((err: Error) => res.status(500).json(err))
     }
 
+    public addOneAchieve (req:Request, res:Response){
+        
+
+        User.update({
+            achieve : req.body.achieve
+        },{ where: { id: req.body.user_id } })
+            .then(([number,users]: [number,Array<User>]) => res.json({number,users}))
+            .catch((err: Error) => res.status(500).json(err))
+        ;
+    }
+
 }
