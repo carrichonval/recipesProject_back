@@ -109,5 +109,15 @@ export class RecetteController {
         res.json({"status":"ok"})
 
     }
+
+     //Ajoute +1 aux recettes faite par un utilisateur
+     public addOneAchieve (req:Request, res:Response){
+        Recette.update({
+            achieve : req.body.achieve
+        },{ where: { id: req.body.recette_id } })
+            .then(([number,recettes]: [number,Array<Recette>]) => res.json({number,recettes}))
+            .catch((err: Error) => res.status(500).json(err))
+        ;
+    }
    
 }

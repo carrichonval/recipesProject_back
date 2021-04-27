@@ -36,7 +36,8 @@ export class Routes {
             .get(this.recetteController.getRecette)
         app.route("/recettes/user/:id")
             .get(this.recetteController.getRecettesFromUser)
-       
+        app.route("/recipes/achieve")
+            .post((this.recetteController.addOneAchieve))
         
         app.route("/ingredients")
             .post(this.ingredientController.addIngredient)
