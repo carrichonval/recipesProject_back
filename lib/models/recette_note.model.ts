@@ -2,6 +2,7 @@
 import { Model, DataTypes} from "sequelize";
 import { database } from "../config/database";
 
+//Modèle d'une note attribué à une recette
 
 export class RecetteNote extends Model {
     public note : number

@@ -4,7 +4,7 @@ import { Etape } from "../models/etape.model";
 
 export class EtapeController {
 
-
+    //Ajouter une étape de recette 
     public async addEtape (req: Request, res: Response) {
        
         await Etape.create({

@@ -7,6 +7,7 @@ import { ResultLike } from "../models/result_like.model";
 
 export class ResultController {
 
+    //Récupérer les résultats
     public async getResults (req: Request, res: Response) {
 
         Result.findAll<Result>({
@@ -23,6 +24,7 @@ export class ResultController {
             .catch((err: Error) => res.status(500).json(err))
     }
 
+    //Récupérer un résultat
     public getResult (req: Request, res: Response) {
 
         Result.findOne({ 
@@ -37,6 +39,7 @@ export class ResultController {
             .catch((err: Error) => res.status(500).json(err))
     }
 
+    //Récupérer les résultats d'un utilisateur
     public getResultFromUser (req: Request, res: Response) {
 
         Result.findAll({ 
@@ -51,6 +54,7 @@ export class ResultController {
             .catch((err: Error) => res.status(500).json(err))
     }
 
+    //Ajouter un commentaire à un résultat
     public async addComment (req: Request, res: Response) {
        
         await ResultComment.create({
@@ -63,6 +67,7 @@ export class ResultController {
         ;
     }
 
+    //Ajouter un like à un résultat
     public async addLike (req: Request, res: Response) {
        
         await ResultLike.create({
@@ -73,9 +78,8 @@ export class ResultController {
             .catch((err: Error) => res.json(err))
         ;
     }
-
-    
-    
+ 
+    //Ajouter un résultat 
     public async addResult (req: Request, res: Response) {
         
         await Result.create({
@@ -87,6 +91,7 @@ export class ResultController {
         ;
     }
     
+    //Supprimer un like d'un résultat
     public async deleteLike (req: Request, res: Response) {
        
         await ResultLike.destroy({ where: {  result_id: req.body.result_id, user_id: req.body.user_id } })
@@ -96,6 +101,7 @@ export class ResultController {
 
     }
 
+    //Supprimer un commentaire d'un résultat
     public async deleteComment (req: Request, res: Response) {
        
         await ResultComment.destroy({ where: {  result_id: req.body.result_id, user_id: req.body.user_id } })
@@ -105,13 +111,17 @@ export class ResultController {
 
     }
 
-
+    //Supprimer un résultat
     public async deleteResult (req:Request, res: Response){
+
+        //Suppression des likes, puis des commentaires, puis du résultat à cause des clefs étrangères
 
         await ResultLike.destroy({ where: {  result_id: req.body.result_id, user_id: req.body.user_id } })
         .then((value: number) =>{ 
+            //Suppression des commentaires
             ResultComment.destroy({ where: {  result_id: req.body.result_id, user_id: req.body.user_id } })
             .then((value: number) => {
+                //Supression du résultat
                 Result.destroy({ where: { id:req.body.result_id } })
                 .then((value: number) => res.json(value))
                 .catch((err: Error) => res.status(500).json(err))
@@ -122,10 +132,8 @@ export class ResultController {
         })
         .catch((err: Error) => res.status(500).json(err))
     ;
-
         res.json({"status":"ok"})
 
     }
-
 
 }

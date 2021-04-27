@@ -7,6 +7,7 @@ import { Etape } from "../models/etape.model";
 
 export class RecetteController {
 
+    //Récupérer toutes les recettes
     public async getRecettes (req: Request, res: Response) {
 
         Recette.findAll<Recette>({
@@ -23,6 +24,7 @@ export class RecetteController {
             .catch((err: Error) => res.status(500).json(err))
     }
 
+    //Récupérer les recettes d'un utilisateur
     public async getRecettesFromUser (req: Request, res: Response) {
 
         Recette.findAll<Recette>({
@@ -40,6 +42,7 @@ export class RecetteController {
             .catch((err: Error) => res.status(500).json(err))
     }
 
+    //Récupérer une recette
     public getRecette (req: Request, res: Response) {
 
         Recette.findOne({ 
@@ -54,6 +57,7 @@ export class RecetteController {
             .catch((err: Error) => res.status(500).json(err))
     }
 
+    //Ajouter une note à une recette
     public async addNote (req: Request, res: Response) {
        
         await RecetteNote.create({
@@ -66,6 +70,7 @@ export class RecetteController {
         ;
     }
 
+    //Ajouter la recette en BDD
     public async addRecette (req: Request, res: Response) {
        
         await Recette.create({
@@ -80,12 +85,16 @@ export class RecetteController {
         ;
     }
 
+    //Supprimer une recette avec ses etapes et ses ingredients
     public async deleteRecette (req:Request, res: Response){
 
+        //Suppression des ingredients, puis des etapes, puis de la recette à cause des clef étrangères
         await Ingredient.destroy({ where: {  recette_id: req.body.recette_id} })
         .then((value: number) =>{ 
+            //Suppression des étapes
             Etape.destroy({ where: {  recette_id: req.body.recette_id} })
             .then((value: number) => {
+                //Suppression de la recette
                 Recette.destroy({ where: { id:req.body.recette_id } })
                 .then((value: number) => res.json(value))
                 .catch((err: Error) => res.status(500).json(err))
@@ -101,5 +110,4 @@ export class RecetteController {
 
     }
    
-
 }

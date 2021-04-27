@@ -7,6 +7,8 @@ import { AuthController } from "../controllers/auth.controller";
 import { IngredientController } from '../controllers/ingredient.controller';
 import { EtapeController } from '../controllers/etape.controller';
 
+//Contient toutes les routes nécessaire aufonctionnement de l'API
+
 export class Routes {
     public app: express.Application;
 
@@ -19,6 +21,7 @@ export class Routes {
     public etapeController : EtapeController = new EtapeController();
 
     public routes(app): void {
+
         //------------------
         app.route("/register")
             .post(this.authController.register)
@@ -37,7 +40,6 @@ export class Routes {
         
         app.route("/ingredients")
             .post(this.ingredientController.addIngredient)
-        
         app.route("/etapes")
             .post(this.etapeController.addEtape)
 
@@ -48,8 +50,6 @@ export class Routes {
             .get(this.userController.getEmails)
         app.route("/users/logins")
             .get(this.userController.getLogins)
-        app.route("/getMoyenne/:id")
-            .get(this.userController.getMoyenneUser)
         app.route("/users/:id")
             .get(this.userController.getUser)
             .delete(this.userController.removeUser)
@@ -57,6 +57,9 @@ export class Routes {
             .patch(this.userController.updateUser)
         app.route("/users/achieve")
             .post(this.userController.addOneAchieve)
+            
+        app.route("/getMoyenne/:id")
+                .get(this.userController.getMoyenneUser)
 
         app.route("/results")
             .get(this.resultController.getResults)

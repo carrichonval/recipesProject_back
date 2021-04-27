@@ -46,6 +46,7 @@ export class UserController {
         ;
     }
 
+    //Récupère un utilisateur
     public getUser (req: Request, res: Response) {
         User.findOne({ 
             where: { id: req.params.id },
@@ -62,6 +63,7 @@ export class UserController {
         ;
     }
 
+    //Récupère les emails
     public getEmails (req: Request, res: Response) {
         User.findAll({ 
             attributes: ['email']
@@ -71,6 +73,7 @@ export class UserController {
         ;
     }
 
+    //Récupère les logins
     public getLogins (req: Request, res: Response) {
         User.findAll({ 
             attributes: ['login']
@@ -80,6 +83,7 @@ export class UserController {
         ;
     }
 
+    //Ajoute un utilisateur
     public async addUser (req: Request, res: Response) {
         let password: String = await bcrypt.hash(req.body.password, 10);
 
@@ -97,6 +101,7 @@ export class UserController {
         ;
     }
 
+    //Supprime un utilisateur
     public removeUser (req: Request, res: Response) {
         User.destroy({ where: { id: req.params.id } })
             .then((value: number) => res.json(value))
@@ -104,6 +109,7 @@ export class UserController {
         ;
     }
 
+    //Met à jour un utilisateur
     public async updateUser (req: Request, res: Response) {
         let password: String = await bcrypt.hash(req.body.password, 10);
 
@@ -121,6 +127,7 @@ export class UserController {
         ;
     }
 
+    //Met à jour ou créer un utilisateur
     public async updateOrCreateUser (req: Request, res: Response) {
         let password: String = await bcrypt.hash(req.body.password, 10);
 
@@ -139,6 +146,7 @@ export class UserController {
         ;
     }
 
+    //Récupère la moyenne d'un utilisateur
     public getMoyenneUser (req:Request, res:Response){
 
         Recette.findAll<Recette>({ 
@@ -173,6 +181,7 @@ export class UserController {
             .catch((err: Error) => res.status(500).json(err))
     }
 
+    //Ajoute +1 aux recettes faite par un utilisateur
     public addOneAchieve (req:Request, res:Response){
         
 

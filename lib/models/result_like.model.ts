@@ -2,6 +2,7 @@
 import { Model} from "sequelize";
 import { database } from "../config/database";
 
+//Modèle d'un like de résultat
 
 export class ResultLike extends Model {}
 

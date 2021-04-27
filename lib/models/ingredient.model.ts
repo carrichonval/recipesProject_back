@@ -2,6 +2,7 @@
 import { Model, DataTypes} from "sequelize";
 import { database } from "../config/database";
 
+//Modèle d'un ingredient d'une recette
 
 export class Ingredient extends Model {
     public id : number
@@ -27,7 +28,7 @@ Ingredient.init(
     },
     {
         tableName: "ingredient",
-        sequelize: database, // this bit is important,
+        sequelize: database, 
         timestamps: false
     }
 );

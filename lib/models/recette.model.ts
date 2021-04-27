@@ -5,6 +5,7 @@ import { Etape } from './etape.model'
 import { Ingredient } from './ingredient.model'
 import { RecetteNote } from './recette_note.model'
 
+//Modèle d'une recette
 
 export class Recette extends Model {
     public id : number
@@ -61,7 +62,7 @@ Recette.init(
     },
     {
         tableName: "recette",
-        sequelize: database, // this bit is important,
+        sequelize: database,
         timestamps: true
     }
 );

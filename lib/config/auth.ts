@@ -39,7 +39,7 @@ export const checkTokenMiddleware = (req:Request, res:Response, next:any):any =>
     })
 }
 
-
+//Créer le token d'authentification
 export const createToken = (user:any)=>{
     const token = jwt.sign({
         user: user,
@@ -47,6 +47,7 @@ export const createToken = (user:any)=>{
     return token
 }
 
+//Décode le token d'authentification
 export const decodedToken = (token:string)=>{
     var decoded = jwt.verify(token, process.env.SECRET);
     if(decoded){

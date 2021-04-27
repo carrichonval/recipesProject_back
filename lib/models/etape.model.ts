@@ -2,6 +2,7 @@
 import { Model, DataTypes} from "sequelize";
 import { database } from "../config/database";
 
+//Modèle d'une etape d'une recette
 
 export class Etape extends Model {
     public id : number
@@ -28,7 +29,7 @@ Etape.init(
     },
     {
         tableName: "etape",
-        sequelize: database, // this bit is important,
+        sequelize: database,
         timestamps: false
     }
 );

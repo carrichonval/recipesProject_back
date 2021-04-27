@@ -6,6 +6,8 @@ import { ResultLike } from './result_like.model';
 import { ResultComment} from './result_comment.model';
 import { RecetteNote } from './recette_note.model'
 
+//Modèle d'un utilisateur
+
 export class User extends Model {
     public id : number
     public email : string
@@ -71,7 +73,7 @@ User.init(
     },
     {
         tableName: "user",
-        sequelize: database, // this bit is important,
+        sequelize: database,
         timestamps: true
     }
 );
@@ -99,7 +101,6 @@ Result.belongsTo(User, {
     as: "user",
     foreignKey: "user_id",
 });
-
 
 //liaisons pour les likes
 
@@ -135,7 +136,7 @@ Result.belongsToMany(User, {
 });
 
 
-//liaisons avec les note
+//liaisons avec les notes
 
 User.belongsToMany(Recette, {
     as: "recette_notes",

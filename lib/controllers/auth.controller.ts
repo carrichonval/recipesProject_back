@@ -5,8 +5,10 @@ import * as bcrypt from "bcrypt";
 
 export class AuthController {
 
+    //Fonction permettant de connecter un utilisateur
     public async login (req: Request, res: Response) {
-        console.log(req.body)
+
+        //Récupération de l'utilisateur en base par son Identifiant
         User.findOne({ 
             where: { login: req.body.login },
             include: [
@@ -17,7 +19,7 @@ export class AuthController {
             ]
         })
         .then((user: User) => {
-             // user = object || user = null|
+             // user = object || user = null
             if(!user){
                 res.json({ message: "Cet utilisateur n'existe pas" })
             }else{
@@ -34,9 +36,11 @@ export class AuthController {
         .catch((err: Error) => res.json(err))
     }
 
+    //Fonction pour enregistrer un utilisateur en base de données
     public async register (req: Request, res: Response) {
+        //Cryptage du mot de passe
         let password: String = await bcrypt.hash(req.body.password, 10);
-
+        //Création de l'utilisateur
         await User.create({ 
                 email: req.body.email,
                 login: req.body.login,

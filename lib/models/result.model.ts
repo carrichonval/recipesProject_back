@@ -4,6 +4,7 @@ import { database } from "../config/database";
 import {ResultLike} from './result_like.model'
 import { ResultComment } from './result_comment.model'
 
+//Modèle d'un résultat
 
 export class Result extends Model {
     public id : number
@@ -25,11 +26,12 @@ Result.init(
     },
     {
         tableName: "result",
-        sequelize: database, // this bit is important,
+        sequelize: database,
         timestamps: false
     }
 );
 
+//Liaisons avec les likes 
 
 Result.hasMany(ResultLike, {
     as : "result_likes",
@@ -42,6 +44,8 @@ ResultLike.belongsTo(Result, {
     foreignKey: "id",
     targetKey: "id"
 });
+
+//Liaisons avec les commentaires
 
 Result.hasMany(ResultComment, {
     as : "result_comments",

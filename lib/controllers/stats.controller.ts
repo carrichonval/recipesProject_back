@@ -7,6 +7,7 @@ import { Op } from "sequelize"
 
 export class StatsController {
 
+    //Récupère les stats global à l'application
     public async getGeneral (req: Request, res: Response) {
      
         const totalRecettes = await Recette.count().catch((err: Error) => res.json(err))
@@ -23,6 +24,7 @@ export class StatsController {
         
     }
 
+    //Récupère les stats d'un utilisateur
     public async getStatsUser (req: Request, res: Response) {
      
         const totalRecettes = await Recette.count({ where: { "user_id": { [Op.eq]: req.params.id } } }).catch((err: Error) => res.json(err))

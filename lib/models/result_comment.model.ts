@@ -2,6 +2,7 @@
 import { Model, DataTypes} from "sequelize";
 import { database } from "../config/database";
 
+//Modèle d'un commentaire d'un résultat
 
 export class ResultComment extends Model {
     public comment : string
